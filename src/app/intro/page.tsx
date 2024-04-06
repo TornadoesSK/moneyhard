@@ -1,6 +1,7 @@
 'use client';
 import { createGoal } from '@/service/openaiService';
 import SingleRow from '@/components/SingleRow';
+import {createInvestmentGoal} from "@/service/mongoService";
 
 export default function Intro() {
   const clickHandler = () => {
@@ -10,6 +11,13 @@ export default function Intro() {
     ).then(r => {
       console.log('Received message');
       console.log(r);
+      if (typeof r === "string") {
+        const data = JSON.parse(r)
+
+        createInvestmentGoal(data).then(r => {
+          console.log(r);
+        })
+      }
     });
   };
 

@@ -28,8 +28,20 @@ export async function sendMessage(systemMessage: string, message: string) {
 }
 
 const CREATE_GOAL_PROMPT = 'You are a financial advisor and you should create an investment goal for a client. The client is a 30 years old man' +
-  ' who really doesnt like risk. Create a goal and divide investments into groups based on his risk management - there are 3 groups: cash, bonds and stocks. Do it in json like this:' +
-  '"{ goalName: string, investmentTimeInYears: number, overallRisk: number, totalAmountToSave: number, investments: [{type: string, amount: number, risk: string}] }"';
+  ' who really doesnt like risk. Create a goal and divide investments into groups based on his risk managementDo it in json like this:' +
+  ' {     goalTimeframe: data.goalTimeframe,\n' +
+  '      userId: email,\n' +
+  '      riskLevel: data.riskLevel,\n' +
+  '      goalValue: data.goalValue,\n' +
+  '      investmentAmount: data.investmentAmount,\n' +
+  '      investmentValue: data.investmentValue,\n' +
+  '      investmentDuration: data.investmentDuration,\n' +
+  '      investmentGoal: data.investmentGoal, // enum - retirement, savings, education\n' +
+  '      investmentStyle: data.investmentStyle, // style - aggressive, moderate, conservative\n' +
+  '      investmentStrategy: data.investmentStrategy, // strategy - growth, income, index\n' +
+  '      investmentAdvice: data.investmentAdvice,\n' +
+  '      investmentRecommendation: data.investmentRecommendation,\n' +
+  '      investmentAllocation: {type: string (stocks, cash, bonds), percentage: number, assetName: string}[] // json value\n';
 
 export async function createGoal(text: string) {
   const completion = await openai.chat.completions.create({

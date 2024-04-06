@@ -87,16 +87,16 @@ enum Employment {
 model Investment {
   id                       String             @id @default(auto()) @map("_id") @db.ObjectId
   userId                   String             @map("user_id")
-  riskLevel                Int
-  goalValue                Int
-  goalTimeframe            Int
-  investmentAmount         Int
-  investmentValue          Int
-  investmentType           InvestmentType
-  investmentDuration       Int
-  investmentGoal           InvestmentGoal
-  investmentStyle          InvestmentStyle
-  investmentStrategy       InvestmentStrategy
+  riskLevel                String
+  goalValue                String
+  goalTimeframe            String
+  investmentAmount         String
+  investmentValue          String
+  investmentType           String
+  investmentDuration       String
+  investmentGoal           String
+  investmentStyle          String
+  investmentStrategy       String
   investmentAdvice         String
   investmentRecommendation String
   // JSON field to include allocation details.
