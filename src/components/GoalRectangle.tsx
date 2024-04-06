@@ -43,7 +43,7 @@ export default function GoalRectangle({
     <Card
       sx={{
         maxWidth: typeof maxWidth === 'number' ? maxWidth : '100%',
-        minWidth: 150,
+        minWidth: 200,
         borderRadius: 4,
         backgroundColor: 'background.paper',
       }}
