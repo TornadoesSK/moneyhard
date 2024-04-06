@@ -1,11 +1,11 @@
 "use client";
-import {sendMessage} from "@/service/openaiService";
+import {createGoal} from "@/service/openaiService";
 
 export default function Intro() {
 
   const clickHandler = () => {
     console.log("Clicked")
-    sendMessage('You should respond by writing everything in rhymes', 'What is a safe investment strategy')
+    createGoal('I want to save about 200000 euros for a house within 5 years.')
       .then(r => {
         console.log("Received message")
         console.log(r)
