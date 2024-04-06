@@ -1,7 +1,42 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
+const { PrismaClient } = require('@prisma/client')
+
+const prisma = new PrismaClient()
+
+async function allUsers() {
+  const allUsers = await prisma.User.findMany()
+  console.log("before allUsers")
+  console.log(allUsers)
+  console.log("after allUsers")
+}
+
+async function addUser() {
+  const newUser = await prisma.user.create({
+    data: {
+      email: "alice@example.com",
+    },
+  });
+
+  console.log("Created new user: ", newUser);
+}
+
 export default function Home() {
+  // addUser().catch(e => {
+  //   throw e
+  // }
+  // ).finally(async () => {
+  //   await prisma.$disconnect()
+  // }
+  // )
+  allUsers()
+  .catch(e => {
+    throw e
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
   return (
     <main className={styles.main}>
       <div className={styles.description}>
