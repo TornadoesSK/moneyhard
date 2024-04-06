@@ -1,42 +1,38 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-
-const { PrismaClient } = require('@prisma/client')
-
-const prisma = new PrismaClient()
+import { createPrismaClient } from "@/adapters/prisma";
+import { Prisma } from "@prisma/client";
 
 async function allUsers() {
-  const allUsers = await prisma.User.findMany()
+  const prisma = createPrismaClient()
+  const allUsers = await prisma.user.findMany()
   console.log("before allUsers")
   console.log(allUsers)
   console.log("after allUsers")
+  prisma.$disconnect()
 }
 
 async function addUser() {
+  const prisma = createPrismaClient()
   const newUser = await prisma.user.create({
     data: {
       email: "alice@example.com",
     },
-  });
-
+  }
+);
+  prisma.$disconnect()
   console.log("Created new user: ", newUser);
 }
 
 export default function Home() {
   // addUser().catch(e => {
   //   throw e
-  // }
-  // ).finally(async () => {
-  //   await prisma.$disconnect()
-  // }
-  // )
+  // })
   allUsers()
   .catch(e => {
     throw e
   })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
+  
   return (
     <main className={styles.main}>
       <div className={styles.description}>
