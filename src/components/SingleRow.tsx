@@ -8,7 +8,12 @@ interface SingleRowProps {
   navigateTo: string;
 }
 
-const SingleRow: React.FC<SingleRowProps> = ({ leftText, rightText, imagePath, navigateTo }) => {
+const SingleRow: React.FC<SingleRowProps> = ({
+  leftText,
+  rightText,
+  imagePath,
+  navigateTo,
+}) => {
   const router = useRouter();
 
   const handleRowClick = () => {
@@ -37,7 +42,11 @@ const SingleRow: React.FC<SingleRowProps> = ({ leftText, rightText, imagePath, n
           {rightText}
         </Typography>
         {imagePath && (
-          <img src={imagePath} alt="Image" style={{ maxWidth: '100%', height: 'auto', maxHeight: '25px' }} />
+          <img
+            src={imagePath}
+            alt="Image"
+            style={{ maxWidth: '100%', height: 'auto', maxHeight: '25px' }}
+          />
         )}
       </Box>
     </Card>
