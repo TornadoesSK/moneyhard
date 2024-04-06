@@ -54,8 +54,8 @@ export default function LandingPage() {
           height={250}
         />
         <Typography align="center" variant="body1">
-          Investing doesn't have to be complex or intimidating. With our app,
-          we've simplified the investing process, making it easy for anyone to
+          Investing doesn&apos;t have to be complex or intimidating. With our app,
+          we&apos;ve simplified the investing process, making it easy for anyone to
           start their journey towards financial success.
         </Typography>
         <Button
