@@ -1,0 +1,14 @@
+.fadeInText {
+    opacity: 0;
+    animation: fadeInAnimation ease 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
