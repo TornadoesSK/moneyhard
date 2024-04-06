@@ -14,6 +14,130 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  email String @unique
+  id                 String   @id @default(auto()) @db.ObjectId @map("_id")
+  name               String
+  email              String   @unique
+  gender             Gender
+  income             Int
+  conversationStyle  ConversationStyle @map("conversation-style")
+  context            UserContext
+}
+
+enum Gender {
+  M
+  F
+  // Add other genders as needed
+}
+
+enum ConversationStyle {
+  formal
+  casual
+  // Add more styles as needed
+}
+
+type UserContext {
+  age                Int
+  incomeType         IncomeType @map("income_type")
+  hardExpenses       Int        @map("hard_expenses")
+  relationshipStatus RelationshipStatus @map("relationship_status")
+  children           Int
+  housing            Housing
+  education          Education
+  employment         Employment
+  occupation         String
+  // Uncomment and adjust types if these fields are required
+  // retirement         Boolean
+  // savings            Int
+  // debt               Int
+  globalPlans        String[]   @map("global_plans")
+}
+
+enum IncomeType {
+  monthly
+  yearly
+  // Add more types as needed
+}
+
+enum RelationshipStatus {
+  single
+  married
+  // Add more statuses as needed
+}
+
+enum Housing {
+  rent
+  own
+  // Add more options as needed
+}
+
+enum Education {
+  none
+  high_school
+  college
+  // Add more levels as needed
+}
+
+enum Employment {
+  unemployed
+  part_time
+  full_time
+  // Add more statuses as needed
+}
+
+
+model Investment {
+  id                       String   @id @default(auto()) @db.ObjectId @map("_id")
+  userId                   String   @map("user_id")
+  riskLevel                Int
+  goalValue                Int
+  goalTimeframe            Int
+  investmentAmount         Int
+  investmentValue          Int
+  investmentType           InvestmentType
+  investmentDuration       Int
+  investmentGoal           InvestmentGoal
+  investmentStyle          InvestmentStyle
+  investmentStrategy       InvestmentStrategy
+  investmentAdvice         String
+  investmentRecommendation String
+  // JSON field to include allocation details.
+  // The structure implicitly defines investment products based on its keys.
+  investmentAllocation     Json
+}
+
+// Enums remain unchanged.
+enum InvestmentType {
+  monthly
+  yearly
+  // Add more types as needed
+}
+
+enum InvestmentGoal {
+  retirement
+  savings
+  education
+  // Add more goals as needed
+}
+
+enum InvestmentStyle {
+  aggressive
+  moderate
+  conservative
+  // Add more styles as needed
+}
+
+enum InvestmentStrategy {
+  growth
+  income
+  index
+  // Add more strategies as needed
+}
+
+enum InvestmentProduct {
+  stocks
+  bonds
+  mutual_funds
+  ETFs
+  cash
+  // Add more products as needed
 }
