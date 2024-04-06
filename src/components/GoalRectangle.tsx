@@ -6,13 +6,14 @@ import LinearProgress, {
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number; inProfit: boolean },
 ) {
+  const { inProfit, ...rest } = props;
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: '100%', mr: 1 }}>
         <LinearProgress
           variant="determinate"
-          {...props}
-          color={props.inProfit ? 'success' : 'error'}
+          color={inProfit ? 'success' : 'error'}
+          {...rest}
         />
       </Box>
       <Box sx={{ minWidth: 35 }}>

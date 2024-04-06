@@ -11,8 +11,6 @@ interface GoalRectangleValues {
 }
 
 export default async function Dashboard() {
-  const session = await getSession();
-  console.log(session);
   const goalRectangleValues: GoalRectangleValues[] = [
     {
       goalName: 'Retirement',

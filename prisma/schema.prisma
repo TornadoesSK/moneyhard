@@ -14,13 +14,13 @@ datasource db {
 }
 
 model User {
-  id                 String   @id @default(auto()) @db.ObjectId @map("_id")
-  name               String
-  email              String   @unique
-  gender             Gender
-  income             Int
-  conversationStyle  ConversationStyle @map("conversation-style")
-  context            UserContext
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  email             String            @unique
+  gender            Gender
+  income            Int
+  conversationStyle ConversationStyle @map("conversation-style")
+  context           UserContext?
 }
 
 enum Gender {
@@ -37,8 +37,8 @@ enum ConversationStyle {
 
 type UserContext {
   age                Int
-  incomeType         IncomeType @map("income_type")
-  hardExpenses       Int        @map("hard_expenses")
+  incomeType         IncomeType         @map("income_type")
+  hardExpenses       Int                @map("hard_expenses")
   relationshipStatus RelationshipStatus @map("relationship_status")
   children           Int
   housing            Housing
@@ -49,7 +49,7 @@ type UserContext {
   // retirement         Boolean
   // savings            Int
   // debt               Int
-  globalPlans        String[]   @map("global_plans")
+  globalPlans        String[]           @map("global_plans")
 }
 
 enum IncomeType {
@@ -84,10 +84,9 @@ enum Employment {
   // Add more statuses as needed
 }
 
-
 model Investment {
-  id                       String   @id @default(auto()) @db.ObjectId @map("_id")
-  userId                   String   @map("user_id")
+  id                       String             @id @default(auto()) @map("_id") @db.ObjectId
+  userId                   String             @map("user_id")
   riskLevel                Int
   goalValue                Int
   goalTimeframe            Int
