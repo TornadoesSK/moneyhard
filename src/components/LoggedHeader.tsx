@@ -9,11 +9,13 @@ import { useRouter } from 'next/navigation';
 interface LoggedHeaderProps {
   showBackButton: boolean;
   content: string;
+  balance?: number;
 }
 
 export default function LoggedHeader({
   showBackButton,
   content,
+  balance,
 }: LoggedHeaderProps) {
   const router = useRouter();
 
@@ -51,7 +53,7 @@ export default function LoggedHeader({
             <Typography sx={{ fontSize: '12px', color: '#b3b3b3' }}>
               Total balance
             </Typography>
-            <Typography sx={{ fontSize: '18px' }}>2 586 €</Typography>
+            <Typography sx={{ fontSize: '18px' }}>{balance ?? '2 587'} €</Typography>
           </Box>
         ) : (
           <Typography
