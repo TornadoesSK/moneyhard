@@ -7,13 +7,6 @@ import NewGoalRectangle from '@/components/NewGoalRectangle';
 import getUserInvestments from '@/db-operations/getUserInvestments';
 import { getSession } from '@auth0/nextjs-auth0';
 
-interface GoalRectangleValues {
-  goalName: string;
-  acquiredValue: number;
-  goalValue: number;
-  monthsToGoal: number;
-}
-
 export default async function Dashboard() {
   const session = await getSession();
   let investments = await getUserInvestments({ email: session!.user.email });
@@ -34,6 +27,7 @@ export default async function Dashboard() {
           {investments.map(inv => (
             <GoalRectangle
               key={inv.goalName}
+              goalId={inv.id}
               goalName={inv.goalName}
               acquiredValue={parseInt(inv.acquiredValue)}
               goalValue={parseInt(inv.goalValue)}

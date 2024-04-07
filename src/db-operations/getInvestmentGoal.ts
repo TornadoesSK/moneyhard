@@ -1,11 +1,9 @@
-import { InvestmentDefinedDTO } from "@/dbDTOs/investment";
-import prismaClient from "@/adapters/prisma";
+import prismaClient from '@/adapters/prisma';
 
-export default async function getInvestmentGoal(goal: InvestmentDefinedDTO) {
-    return await prismaClient.investment.findFirst({
-        where: {
-          userId: goal.userId,
-          goalName: goal.goalName,
-        },
-      });
+export default async function getInvestmentGoal(goalId: string) {
+  return await prismaClient.investment.findUnique({
+    where: {
+      id: goalId,
+    },
+  });
 }

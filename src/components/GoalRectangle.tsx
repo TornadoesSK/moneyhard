@@ -1,7 +1,10 @@
+'use client';
+
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
+import { useRouter } from 'next/navigation';
 
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number; inProfit: boolean },
@@ -31,18 +34,27 @@ interface Props {
   goalValue: number;
   monthsToGoal: number;
   maxWidth?: number;
+  goalId: string;
 }
 
 export default function GoalRectangle({
+  goalId,
   goalName,
   acquiredValue,
   goalValue,
   monthsToGoal,
   maxWidth,
 }: Props) {
+  const router = useRouter();
   return (
     <Card
+      onClick={() => {
+        router.push(`/goal/${goalId}`);
+      }}
       sx={{
+        '&:hover': {
+          cursor: 'pointer',
+        },
         maxWidth: typeof maxWidth === 'number' ? maxWidth : '100%',
         minWidth: 200,
         borderRadius: 4,
