@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import LinearProgress, {
   LinearProgressProps,

@@ -10,11 +10,9 @@ import BasicLineChart from '@/components/charts/BasicLineChart';
 export default async function GoalPage({
   params,
 }: {
-  params: { slug: string };
+  params: { goalId: string };
 }) {
-  console.log(params.slug);
-  const goal = await getInvestmentGoal(params.slug);
-  console.log(goal);
+  const goal = await getInvestmentGoal(params.goalId);
 
   return (
     <>
@@ -28,7 +26,6 @@ export default async function GoalPage({
         <BasicLineChart
           xAxisData={[2023, 2024]}
           seriesData={[0, parseInt(goal?.acquiredValue!)]}
-          width={400}
           height={300}
           xAxisMin={2023}
           xAxisMax={2040}
