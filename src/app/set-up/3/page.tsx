@@ -7,15 +7,20 @@ import { completeUserInitForm } from '@/service/completeUserInitForm';
 
 export default function SetUp() {
   return (
-    <Box sx={{ height: '100vh', p: '25px' }}>
+    <Box sx={{ height: '100vh', p: '25px', pt: '45px' }}>
       <ChatUI isSetup={true} />
-        <Button
-            onClick={async () => {
-                await completeUserInitForm();
-            }}
-        >
-            End chat
-        </Button>
+      <Button
+        onClick={async () => {
+          await completeUserInitForm();
+        }}
+        sx={{
+          position: 'absolute',
+          top: '8px',
+          right: '10px',
+        }}
+      >
+        End chat
+      </Button>
     </Box>
   );
 }

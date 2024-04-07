@@ -22,7 +22,7 @@ const ExpensePage = () => {
   const [formData, setFormData] = useState({
     monthlyExpenses: '',
     job: '',
-    'marriage-status': '',
+    'marriage-status': 'single',
     mortgage: '',
     'other-loans': '',
     'current-investment-amount': '',

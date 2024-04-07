@@ -21,7 +21,7 @@ const SetUpPage = () => {
     name: '',
     age: '',
     income: '',
-    gender: '',
+    gender: 'M',
   });
 
   // Function to handle form field changes
