@@ -18,3 +18,8 @@ export interface InvestmentDTO {
   investmentRecommendation: string;
   investmentAllocation: object;
 }
+
+export interface InvestmentDefinedDTO {
+  userId: string;
+  goalName: string;
+}
