@@ -149,9 +149,24 @@ export async function createAssetTypeHint(assetType: string) {
   ) {
     return '';
   }
+}
+
+export async function createFinancialTip() {
+  const financialTipPrompt = `You are financial advisor which gives one financial tip for today in funny way. Make it short and on point`;
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'system', content: financialTipPrompt }],
+    model: GPT_MODEL,
+  });
+
+  if (
+    completion.choices.length <= 0 ||
+    completion.choices.at(0) === undefined
+  ) {
+    return '';
+  }
 
   // @ts-ignore
-  return completion.choices.at(0).message.content;
+  return 'Tip: ' + completion.choices.at(0).message.content;
 }
 
 export async function createGoalChatOnly(

@@ -8,6 +8,7 @@ import getUserInvestments from '@/db-operations/getUserInvestments';
 import { getSession } from '@auth0/nextjs-auth0';
 import { getInvestments } from '@/service/mongoService';
 import SingleRow from '@/components/SingleRow';
+import { createFinancialTip } from '@/service/openaiService';
 
 export default async function Dashboard() {
   const session = await getSession();
@@ -79,6 +80,9 @@ export default async function Dashboard() {
       <Box sx={{ padding: '25px' }}>
         <Typography component="h2" sx={{ fontSize: '20px', mb: '10px' }}>
           Your goals
+        </Typography>
+        <Typography variant="caption" component="p" sx={{ mb: '10px' }}>
+          {await createFinancialTip()}
         </Typography>
         <Carousel>
           {data &&
