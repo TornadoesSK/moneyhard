@@ -16,14 +16,13 @@ interface GoalPageProps {
   goalId: string;
 }
 
-export default async function GoalPage( { goalId }: GoalPageProps) {
-  const  session  = await getSession();
-  const invdto :InvestmentDefinedDTO = {
+export default async function GoalPage({ goalId }: GoalPageProps) {
+  const session = await getSession();
+  const invdto: InvestmentDefinedDTO = {
     userId: session?.user.email,
     goalName: goalId,
-  }
+  };
   const goal = await getInvestmentGoal(invdto);
-
 
   return (
     <>
@@ -34,14 +33,16 @@ export default async function GoalPage( { goalId }: GoalPageProps) {
         </Typography>
       </Box>
       <Box sx={{ padding: '25px' }}>
-        <BasicLineChart xAxisData={[2023,2024]}
-        seriesData={[0, parseInt(goal?.acquiredValue!)]}
-        width={400}
-        height={300}
-        xAxisMin={2023}
-        xAxisMax={2040}
-        yAxisMin={0}
-        yAxisMax={parseInt(goal?.goalValue!)}/>
+        <BasicLineChart
+          xAxisData={[2023, 2024]}
+          seriesData={[0, parseInt(goal?.acquiredValue!)]}
+          width={400}
+          height={300}
+          xAxisMin={2023}
+          xAxisMax={2040}
+          yAxisMin={0}
+          yAxisMax={parseInt(goal?.goalValue!)}
+        />
       </Box>
     </>
   );
