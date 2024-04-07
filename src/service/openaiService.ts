@@ -136,6 +136,24 @@ export async function createGoal(
   return completion.choices.at(0).message.content;
 }
 
+export async function createAssetTypeHint(assetType: string) {
+  const assetTypePrompt = `You are financial advisor which tries to explain investment terms to non-experienced client who wants to start investing. Explain in one sentence what is ${assetType}`;
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'system', content: assetTypePrompt }],
+    model: GPT_MODEL,
+  });
+
+  if (
+    completion.choices.length <= 0 ||
+    completion.choices.at(0) === undefined
+  ) {
+    return '';
+  }
+
+  // @ts-ignore
+  return completion.choices.at(0).message.content;
+}
+
 export async function createGoalChatOnly(
   text: string,
   contextDto: UserContextFromRegFormsDTO,

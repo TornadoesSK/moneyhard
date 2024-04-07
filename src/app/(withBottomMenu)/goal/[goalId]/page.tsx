@@ -4,15 +4,16 @@ import getInvestmentGoal from '@/db-operations/getInvestmentGoal';
 import BasicLineChart from '@/components/charts/BasicLineChart';
 import { JsonArray } from '@prisma/client/runtime/library';
 import SingleRow from '@/components/SingleRow';
+import { createAssetTypeHint } from '@/service/openaiService';
 
 // create interface for the props, I need to pass the props to the component goalPage
 // I will use this interface to pass the props to the component
 // i need name of the goal, goal value, acquired value, months to goal, and max width
 
 interface Allocation {
-  type: string,
-  percentage: number,
-  assetName: string
+  type: string;
+  percentage: number;
+  assetName: string;
 }
 
 export default async function GoalPage({
@@ -26,7 +27,7 @@ export default async function GoalPage({
     <>
       <LoggedHeader showBackButton={true} content="Goal" />
       <Box sx={{ padding: '25px' }}>
-        <Typography component="h2" sx={{ fontSize: '20px'}}>
+        <Typography component="h2" sx={{ fontSize: '20px' }}>
           {goal?.goalName}
         </Typography>
         <BasicLineChart
@@ -59,10 +60,18 @@ export default async function GoalPage({
               <SingleRow
                 key={item.assetName}
                 leftText={`${item.assetName}`}
-                rightText={`${item.percentage}% - ${Number(goal.acquiredValue) * item.percentage / 100} €`}
+                rightText={`${item.percentage}% - ${(Number(goal.acquiredValue) * item.percentage) / 100} €`}
               />
             ))}
           </Box>
+          <Typography variant="caption">
+            {goal.investmentAllocation.length > 0 &&
+              (await createAssetTypeHint(
+                goal.investmentAllocation[
+                  Math.floor(Math.random() * goal.investmentAllocation.length)
+                ].type,
+              ))}
+          </Typography>
         </Box>
       )}
     </>
