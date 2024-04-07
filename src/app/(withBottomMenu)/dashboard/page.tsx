@@ -2,6 +2,7 @@ import Carousel from '@/components/Carousel';
 import GoalRectangle from '@/components/GoalRectangle';
 import { Box, Typography } from '@mui/material';
 import { getSession } from '@auth0/nextjs-auth0';
+import { headers } from 'next/headers';
 
 interface GoalRectangleValues {
   goalName: string;

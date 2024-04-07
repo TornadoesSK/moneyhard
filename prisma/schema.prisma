@@ -14,13 +14,14 @@ datasource db {
 }
 
 model User {
-  id                String            @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
-  email             String            @unique
-  gender            Gender
-  income            Int
-  conversationStyle ConversationStyle @map("conversation-style")
-  context           UserContext?
+  id                     String            @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String
+  email                  String            @unique
+  gender                 Gender
+  income                 Int
+  conversationStyle      ConversationStyle @map("conversation-style")
+  registrationFormFilled Boolean
+  context                UserContext?
 }
 
 enum Gender {

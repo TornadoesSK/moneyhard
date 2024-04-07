@@ -2,6 +2,7 @@
 
 import prismaClient from '@/adapters/prisma';
 import { getSession } from '@auth0/nextjs-auth0';
+import { Gender } from '@prisma/client';
 
 export async function setBasicUserData(data: any) {
   const session = await getSession();
@@ -17,12 +18,8 @@ export async function setBasicUserData(data: any) {
       data: {
         income: Number(data.income),
         name: data.name,
-        gender: data.gender,
-        context: {
-          update: {
-            age: Number(data.age),
-          },
-        },
+        gender: data.gender === 'F' ? Gender.F : Gender.M,
+        context: null,
       },
     })
     .then(r => console.log(r));

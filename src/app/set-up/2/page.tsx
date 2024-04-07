@@ -43,7 +43,7 @@ const ExpensePage = () => {
     e.preventDefault();
     setAdditionalData(formData);
 
-    router.push('/dashboard', { scroll: false });
+    router.push('/set-up/3', { scroll: false });
   };
 
   return (
