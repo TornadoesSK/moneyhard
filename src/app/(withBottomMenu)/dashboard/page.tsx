@@ -33,16 +33,26 @@ export default async function Dashboard() {
       });
     });
     let finalArray = [];
-    finalArray.push({ type: 'Stocks', amount: `${stocks} €` });
-    finalArray.push({ type: 'Bonds', amount: `${bonds} €` });
-    finalArray.push({ type: 'Cash', amount: `${cash} €` });
+    finalArray.push({ type: 'Stocks', amount: `${stocks} €`, number: stocks });
+    finalArray.push({ type: 'Bonds', amount: `${bonds} €`, number: bonds });
+    finalArray.push({ type: 'Cash', amount: `${cash} €`, number: cash });
 
     return finalArray;
   };
 
+  function getTotalBalance() {
+    const dataArray = calculateTotalAmounts(data)
+    let sum = 0
+    dataArray.forEach((item) => {
+      sum += item.number
+    })
+
+    return sum ?? 0
+  }
+
   return (
     <>
-      <LoggedHeader showBackButton={false} content="balance" />
+      <LoggedHeader showBackButton={false} content="balance" balance={getTotalBalance()} />
       <Box sx={{ padding: '25px' }}>
         <Typography component="h2" sx={{ fontSize: '20px', mb: '25px' }}>
           Recommended budget
