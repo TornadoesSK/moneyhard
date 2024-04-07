@@ -1,8 +1,7 @@
 import Carousel from '@/components/Carousel';
 import GoalRectangle from '@/components/GoalRectangle';
 import { Box, Typography } from '@mui/material';
-import { getSession } from '@auth0/nextjs-auth0';
-import { headers } from 'next/headers';
+import NewGoalRectangle from '@/components/NewGoalRectangle';
 
 interface GoalRectangleValues {
   goalName: string;
@@ -48,6 +47,7 @@ export default async function Dashboard() {
           />
         ))}
       </Carousel>
+      <NewGoalRectangle maxWidth={200} />
     </Box>
   );
 }
