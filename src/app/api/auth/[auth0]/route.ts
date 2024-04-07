@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation';
 import { NextRequest } from 'next/server';
 import userIsInDbCheck from '@/db-operations/userIsInDbCheck';
 import addUserAfterRegistration from '@/db-operations/addUserAfterRegistration';
+import { cookies } from 'next/headers';
+import hasUserCompletedInitialForm from '@/db-operations/hasUserCompletedInitialForm';
 
 const afterCallback = async (req: NextRequest, session: any, state: any) => {
   if (session.accessToken.length !== 0) {
@@ -10,13 +12,22 @@ const afterCallback = async (req: NextRequest, session: any, state: any) => {
       email: session.user.email,
     });
     if (!userAlreadyInDb) {
-      const successfullyAdded = await addUserAfterRegistration({
+      await addUserAfterRegistration({
         email: session.user.email,
         nickname: session.user.nickname,
       });
-      console.log(successfullyAdded);
     }
-    console.log(userAlreadyInDb);
+    let hasCompletedInitForm = false;
+    if (userAlreadyInDb) {
+      hasCompletedInitForm = await hasUserCompletedInitialForm({
+        email: session.user.email,
+      });
+    }
+    cookies().set('initialFormFilled', hasCompletedInitForm.toString(), {
+      path: '/',
+      maxAge: 123456789,
+    });
+
     return session;
   } else {
     redirect('/unauthorized');

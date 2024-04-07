@@ -13,6 +13,7 @@ export default async function addUserAfterRegistration(
         gender: Gender.M,
         income: 0,
         conversationStyle: 'formal',
+        registrationFormFilled: false,
         context: null,
       },
     });
