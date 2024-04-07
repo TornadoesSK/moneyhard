@@ -1,3 +1,5 @@
+'use client';
+
 import ChatUI from '@/components/ChatUI';
 import { Box } from '@mui/material';
 
