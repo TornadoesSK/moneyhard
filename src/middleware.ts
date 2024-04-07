@@ -18,7 +18,7 @@ export default async function middleware(
   ) {
     return NextResponse.redirect(new URL('/set-up/1', req.url));
   } else if (
-    req.cookies.get('initialFormFilled')?.value == null &&
+    req.cookies.get('initialFormFilled')?.value != 'false' &&
     req.nextUrl.pathname.startsWith('/set-up')
   ) {
     return NextResponse.redirect(new URL('/dashboard', req.url));

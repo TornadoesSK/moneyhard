@@ -9,20 +9,24 @@ export default function BasicPie() {
           data: [
             { id: 0, value: 600, label: 'Free Cash' },
             { id: 1, value: 300, label: 'Investment' },
-            { id: 2, value: 700, label: 'Hard spending' },
+            { id: 2, value: 700, label: 'Fixed expenses' },
           ],
-          innerRadius: 30,
-          outerRadius: 100,
+          innerRadius: '15%',
+          outerRadius: '80%',
           paddingAngle: 5,
           cornerRadius: 5,
-          startAngle: -90,
-          endAngle: 180,
-          cx: 150,
-          cy: 150,
+          startAngle: 0,
+          endAngle: 360,
+          cy: '40%',
         },
       ]}
-      width={450}
-      height={280}
+      height={300}
+      slotProps={{
+        legend: {
+          direction: 'row',
+          position: { horizontal: 'middle', vertical: 'bottom' },
+        },
+      }}
     />
   );
 }
