@@ -84,9 +84,9 @@ export default async function Dashboard() {
           {data &&
             data.map((item, idx) => (
               <GoalRectangle
-                key={item.investmentGoal}
+                key={item.goalName}
                 goalId={item.id}
-                goalName={item.investmentGoal}
+                goalName={item.goalName}
                 acquiredValue={Number(item.acquiredValue)}
                 goalValue={Number(item.goalValue)}
                 monthsToGoal={item.goalTimeframe}

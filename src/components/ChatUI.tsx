@@ -67,6 +67,7 @@ const ChatUI = ({ isSetup }: ChatUIProps) => {
         height: '100%',
         overflow: 'hidden',
         gap: '25px',
+        pb: "80px"
       }}
     >
       <Box

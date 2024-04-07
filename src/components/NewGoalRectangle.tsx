@@ -56,6 +56,7 @@ export default function NewGoalRectangle({ maxWidth, userId }: Props) {
       },
       formData,
     );
+    window.location.href = window.location.href;
   };
 
   return (
@@ -77,7 +78,7 @@ export default function NewGoalRectangle({ maxWidth, userId }: Props) {
             alignItems: 'center',
             height: '100%',
             width: '100%',
-            p: 0,
+            px: 0,
           }}
         >
           {showForm ? (

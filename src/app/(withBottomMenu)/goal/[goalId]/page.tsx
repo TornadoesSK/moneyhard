@@ -18,11 +18,9 @@ export default async function GoalPage({
     <>
       <LoggedHeader showBackButton={true} content="Goal" />
       <Box sx={{ padding: '25px' }}>
-        <Typography component="h2" sx={{ fontSize: '20px', mb: '10px' }}>
+        <Typography component="h2" sx={{ fontSize: '20px'}}>
           {goal?.goalName}
         </Typography>
-      </Box>
-      <Box sx={{ padding: '25px' }}>
         <BasicLineChart
           xAxisData={[2023, 2024]}
           seriesData={[0, parseInt(goal?.acquiredValue!)]}
