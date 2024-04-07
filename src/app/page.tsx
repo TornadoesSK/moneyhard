@@ -41,9 +41,13 @@ export default function LandingPage() {
           maxWidth: '400px',
         }}
       >
-        <Typography variant="h3" component="h1">
-          FinWise placeholder
-        </Typography>
+        <Image
+          src="/logo.svg"
+          width={200}
+          height={33}
+          alt="logo"
+          style={{ marginBottom: '30px' }}
+        />
         <Typography variant="h3" component="h1">
           Your Path to Smarter Investing
         </Typography>
@@ -54,9 +58,9 @@ export default function LandingPage() {
           height={250}
         />
         <Typography align="center" variant="body1">
-          Investing doesn&apos;t have to be complex or intimidating. With our app,
-          we&apos;ve simplified the investing process, making it easy for anyone to
-          start their journey towards financial success.
+          Investing doesn&apos;t have to be complex or intimidating. With our
+          app, we&apos;ve simplified the investing process, making it easy for
+          anyone to start their journey towards financial success.
         </Typography>
         <Button
           variant="contained"

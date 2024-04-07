@@ -1,4 +1,4 @@
-import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import GoalRectangle from '@/components/GoalRectangle';
 
 export default function GoalPage() {
