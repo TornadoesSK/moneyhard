@@ -54,6 +54,7 @@ export default async function GoalPage({
               display: 'flex',
               flexDirection: 'column',
               gap: '10px',
+              mb: 2
             }}
           >
             {(goal.investmentAllocation as JsonArray).map((item, index) => (
