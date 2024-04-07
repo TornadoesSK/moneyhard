@@ -48,7 +48,7 @@ export default function LandingPage() {
           alt="logo"
           style={{ marginBottom: '30px' }}
         />
-        <Typography variant="h3" component="h1">
+        <Typography variant="h4" component="h1" sx={{alignSelf: "start"}}>
           Your Path to Smarter Investing
         </Typography>
         <Image
@@ -74,7 +74,7 @@ export default function LandingPage() {
         >
           Log in
         </Button>
-        <Typography variant="h3" component="h1">
+        <Typography variant="h4" component="h2" sx={{alignSelf: "start", marginTop: "10px"}}>
           Tailored for You
         </Typography>
 
@@ -104,7 +104,7 @@ export default function LandingPage() {
           ))}
         </Carousel>
 
-        <Typography variant="h3" component="h1">
+        <Typography variant="h4" component="h1" sx={{alignSelf: "start", marginTop: "30px"}}>
           Use Our AI Assistant
         </Typography>
         <Image
