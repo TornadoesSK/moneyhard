@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import { createSetup } from '@/service/openaiService';

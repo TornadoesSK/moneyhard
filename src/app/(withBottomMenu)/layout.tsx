@@ -104,7 +104,7 @@ export default function Layout({
         >
           &#x2715;
         </Box>
-        <ChatUI />
+        <ChatUI isSetup={false} />
       </Drawer>
     </>
   );
