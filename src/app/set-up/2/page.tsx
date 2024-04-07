@@ -39,8 +39,8 @@ const ExpensePage = () => {
   };
 
   // Function to handle form submission
-  const handleSubmitClick = () => {
-    setAdditionalData(formData);
+  const handleSubmitClick = async () => {
+    await setAdditionalData(formData);
 
     router.push('/set-up/3', { scroll: false });
   };
