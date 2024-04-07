@@ -1,7 +1,7 @@
 import Carousel from '@/components/Carousel';
 import GoalRectangle from '@/components/GoalRectangle';
+import LoggedHeader from '@/components/LoggedHeader';
 import { Box, Typography } from '@mui/material';
-import { getSession } from '@auth0/nextjs-auth0';
 
 interface GoalRectangleValues {
   goalName: string;
@@ -32,21 +32,24 @@ export default async function Dashboard() {
     },
   ];
   return (
-    <Box sx={{ padding: '25px' }}>
-      <Typography variant="h3" component="h1">
-        Your goals
-      </Typography>
-      <Carousel>
-        {goalRectangleValues.map(glv => (
-          <GoalRectangle
-            key={glv.goalName}
-            goalName={glv.goalName}
-            acquiredValue={glv.acquiredValue}
-            goalValue={glv.goalValue}
-            monthsToGoal={glv.monthsToGoal}
-          />
-        ))}
-      </Carousel>
-    </Box>
+    <>
+      <LoggedHeader showBackButton={false} content="balance" />
+      <Box sx={{ padding: '25px' }}>
+        <Typography variant="h3" component="h1">
+          Your goals
+        </Typography>
+        <Carousel>
+          {goalRectangleValues.map(glv => (
+            <GoalRectangle
+              key={glv.goalName}
+              goalName={glv.goalName}
+              acquiredValue={glv.acquiredValue}
+              goalValue={glv.goalValue}
+              monthsToGoal={glv.monthsToGoal}
+            />
+          ))}
+        </Carousel>
+      </Box>
+    </>
   );
 }
