@@ -4,6 +4,8 @@ import LoggedHeader from '@/components/LoggedHeader';
 import BasicPie from '@/components/charts/PieChart';
 import { Box, Typography } from '@mui/material';
 import NewGoalRectangle from '@/components/NewGoalRectangle';
+import getUserInvestments from '@/db-operations/getUserInvestments';
+import { getSession } from '@auth0/nextjs-auth0';
 
 interface GoalRectangleValues {
   goalName: string;
@@ -13,26 +15,8 @@ interface GoalRectangleValues {
 }
 
 export default async function Dashboard() {
-  const goalRectangleValues: GoalRectangleValues[] = [
-    {
-      goalName: 'Retirement',
-      acquiredValue: 27899,
-      goalValue: 45000,
-      monthsToGoal: 73,
-    },
-    {
-      goalName: 'Family trip',
-      acquiredValue: -988,
-      goalValue: 2400,
-      monthsToGoal: 7,
-    },
-    {
-      goalName: 'New car',
-      acquiredValue: 2822,
-      goalValue: 13000,
-      monthsToGoal: 27,
-    },
-  ];
+  const session = await getSession();
+  let investments = await getUserInvestments({ email: session!.user.email });
   return (
     <>
       <LoggedHeader showBackButton={false} content="balance" />
@@ -47,19 +31,18 @@ export default async function Dashboard() {
           Your goals
         </Typography>
         <Carousel>
-          {goalRectangleValues.map(glv => (
+          {investments.map(inv => (
             <GoalRectangle
-              key={glv.goalName}
-              goalName={glv.goalName}
-              acquiredValue={glv.acquiredValue}
-              goalValue={glv.goalValue}
-              monthsToGoal={glv.monthsToGoal}
+              key={inv.goalName}
+              goalName={inv.goalName}
+              acquiredValue={parseInt(inv.acquiredValue)}
+              goalValue={parseInt(inv.goalValue)}
+              monthsToGoal={parseInt(inv.months)}
             />
           ))}
         </Carousel>
-        <NewGoalRectangle maxWidth={200} />
+        <NewGoalRectangle maxWidth={200} userId={session!.user.email} />
       </Box>
-
     </>
   );
 }

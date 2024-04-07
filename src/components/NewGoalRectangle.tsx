@@ -15,20 +15,23 @@ import { createGoal } from '@/service/openaiService';
 
 interface Props {
   maxWidth?: number;
+  userId: string;
 }
 
 interface FormData {
   goalName: string;
   valueGoal: number;
   months: number;
+  userId: string;
 }
 
-export default function NewGoalRectangle({ maxWidth }: Props) {
+export default function NewGoalRectangle({ maxWidth, userId }: Props) {
   const [showForm, setShowForm] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
     goalName: '',
     valueGoal: 0,
     months: 0,
+    userId,
   });
 
   const handleInputChange: React.ChangeEventHandler<

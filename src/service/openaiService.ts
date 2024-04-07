@@ -10,6 +10,7 @@ export interface NewInvestmentGoalFormData {
   goalName: string;
   valueGoal: number;
   months: number;
+  userId: string;
 }
 
 const GPT_MODEL = 'gpt-3.5-turbo';
@@ -47,7 +48,6 @@ const CREATE_GOAL_PROMPT =
   "Client is working as {{occupation}} and is in {{relationship}} relationship. Client's investment goal is {{valueGoal}} and he would like to achieve it in {{months}} months. " +
   'Create a goal and divide investments into groups based on his risk managementDo it in json like this:' +
   ' {     "goalTimeframe": string(data.goalTimeframe),\n' +
-  '      "userId": string(email),\n' +
   '      "riskLevel": string(data.riskLevel),\n' +
   '      "goalValue": string(data.goalValue),\n' +
   '      "investmentAmount": string(data.investmentAmount),\n' +
@@ -104,6 +104,7 @@ export async function createGoal(
       ).toString(),
       months: investmentGoalFormData.months.toString(),
       investmentType: 'monthly',
+      userId: investmentGoalFormData.userId,
     } as InvestmentDTO);
   } catch (error) {
     console.error('Error parsing JSON:', error);

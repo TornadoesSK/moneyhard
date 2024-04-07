@@ -51,7 +51,7 @@ export default function GoalRectangle({
     >
       <CardContent>
         <Typography
-          sx={{ fontSize: "18px", fontWeight: 500 }}
+          sx={{ fontSize: '18px', fontWeight: 500 }}
           color="text.secondary"
           gutterBottom
         >
@@ -62,7 +62,7 @@ export default function GoalRectangle({
           inProfit={acquiredValue >= 0}
         />
         <Typography variant="body2" color="text.secondary">
-          {acquiredValue} / {goalValue}
+          {acquiredValue} € / {goalValue} €
         </Typography>
       </CardContent>
       <CardActions>
