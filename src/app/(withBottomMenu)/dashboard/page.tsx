@@ -37,7 +37,7 @@ export default async function Dashboard() {
     <>
       <LoggedHeader showBackButton={false} content="balance" />
       <Box sx={{ padding: '25px' }}>
-        <Typography component="h2" sx={{ fontSize: '20px', mb: '10px' }}>
+        <Typography component="h2" sx={{ fontSize: '20px', mb: '25px' }}>
           Recommended budget
         </Typography>
         <BasicPie />
