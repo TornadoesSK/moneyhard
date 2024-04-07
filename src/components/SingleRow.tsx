@@ -1,3 +1,4 @@
+'use client';
 import { Box, Card, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
@@ -24,7 +25,7 @@ const SingleRow: React.FC<SingleRowProps> = ({
     <Card
       onClick={handleRowClick}
       sx={{
-        width: 'calc(100% - 50px)',
+        width: '100%',
         borderRadius: 22,
         display: 'flex',
         justifyContent: 'space-between',
@@ -33,7 +34,7 @@ const SingleRow: React.FC<SingleRowProps> = ({
         cursor: 'pointer',
         backgroundColor: 'background.main',
         color: 'text.secondary',
-        margin: '0 25px 0 25px',
+        // margin: '0 25px 0 25px',
       }}
     >
       <Typography variant="body1">{leftText}</Typography>

@@ -55,3 +55,21 @@ export async function setAdditionalData(data: any) {
     })
     .then(r => console.log(r));
 }
+
+export async function getInvestments() {
+  const session = await getSession();
+  if (session == null) {
+    console.log('Cant update');
+    return;
+  }
+  const email = session.user.email;
+
+  const data = prismaClient.investment.findMany({
+    where: {
+      userId: email,
+    },
+  })
+    //.then(r => console.log(r))
+
+  return data
+}

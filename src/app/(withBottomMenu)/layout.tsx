@@ -22,7 +22,7 @@ export default function Layout({
   const [drawerOpenned, setDrawerOpenned] = useState(false);
 
   return (
-    <>
+    <Box sx={{ pb: '80px' }}>
       {children}
       <Paper
         sx={{
@@ -32,6 +32,7 @@ export default function Layout({
           width: '100vw',
           py: '10px',
           backgroundColor: 'background.default',
+          zIndex: 99999
         }}
         elevation={5}
       >
@@ -106,6 +107,6 @@ export default function Layout({
         </Box>
         <ChatUI isSetup={false} />
       </Drawer>
-    </>
+    </Box>
   );
 }

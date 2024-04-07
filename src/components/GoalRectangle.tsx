@@ -1,5 +1,3 @@
-'use client';
-
 import { Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import LinearProgress, {
   LinearProgressProps,
@@ -32,7 +30,7 @@ interface Props {
   goalName: string;
   acquiredValue: number;
   goalValue: number;
-  monthsToGoal: number;
+  monthsToGoal: string;
   maxWidth?: number;
   goalId: string;
 }
@@ -83,7 +81,7 @@ export default function GoalRectangle({
           color="text.secondary"
           sx={{ marginLeft: '10px' }}
         >
-          {monthsToGoal} {monthsToGoal === 1 ? 'month' : 'months'} left
+          {monthsToGoal} left
         </Typography>
       </CardActions>
     </Card>
