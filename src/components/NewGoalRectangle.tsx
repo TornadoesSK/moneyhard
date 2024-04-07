@@ -10,6 +10,8 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { setAdditionalData } from '@/service/mongoService';
+import { createGoal } from '@/service/openaiService';
 
 interface Props {
   maxWidth?: number;
@@ -38,6 +40,21 @@ export default function NewGoalRectangle({ maxWidth }: Props) {
     });
   };
 
+  const handleSubmitClick = async () => {
+    await createGoal(
+      '',
+      {
+        age: 50,
+        income: 1200,
+        gender: 'Male',
+        relationshipStatus: 'Married',
+        occupation: 'carpenter',
+        hardExpenses: 230,
+      },
+      formData,
+    );
+  };
+
   return (
     <>
       <Card
@@ -59,8 +76,9 @@ export default function NewGoalRectangle({ maxWidth }: Props) {
         >
           {showForm ? (
             <form
-              onSubmit={e => {
+              onSubmit={async e => {
                 e.preventDefault();
+                await handleSubmitClick();
               }}
             >
               <Grid container spacing={2}>
@@ -83,8 +101,8 @@ export default function NewGoalRectangle({ maxWidth }: Props) {
                   <TextField
                     required
                     fullWidth
-                    id="goalValue"
-                    name="goalValue"
+                    id="valueGoal"
+                    name="valueGoal"
                     label="Investment goal"
                     type="number"
                     onChange={handleInputChange}
@@ -112,6 +130,15 @@ export default function NewGoalRectangle({ maxWidth }: Props) {
               </Grid>
               <Button type="submit" variant="contained" sx={{ mt: 2 }}>
                 Submit
+              </Button>
+              <Button
+                variant="contained"
+                sx={{ mt: 2 }}
+                onClick={() => {
+                  setShowForm(false);
+                }}
+              >
+                Close
               </Button>
             </form>
           ) : (

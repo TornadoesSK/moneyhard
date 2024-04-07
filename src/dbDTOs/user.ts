@@ -6,3 +6,12 @@ export interface UserAfterRegistrationDTO {
 export interface UserIsInDbDTO {
   email: string;
 }
+
+export interface UserContextFromRegFormsDTO {
+  age: number;
+  income: number;
+  gender: 'Male' | 'Female';
+  relationshipStatus: 'Married' | 'Single';
+  occupation: string;
+  hardExpenses: number;
+}
