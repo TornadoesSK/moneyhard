@@ -1,9 +1,10 @@
+'use client';
+
 import { LineChart } from '@mui/x-charts/LineChart';
 
 interface BasicLineChartProps {
   xAxisData: number[];
   seriesData: number[];
-  width: number;
   height: number;
   xAxisMin?: number;
   xAxisMax?: number;
@@ -14,7 +15,6 @@ interface BasicLineChartProps {
 export default function BasicLineChart({
   xAxisData,
   seriesData,
-  width,
   height,
   xAxisMin,
   xAxisMax,
@@ -46,7 +46,6 @@ export default function BasicLineChart({
           showMark: false,
         },
       ]}
-      width={width}
       height={height}
     />
   );

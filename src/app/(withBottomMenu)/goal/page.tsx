@@ -1,8 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import GoalRectangle from '@/components/GoalRectangle';
 import LoggedHeader from '@/components/LoggedHeader';
-import prismaClient from '@/adapters/prisma';
-import { get } from 'http';
 import { getSession } from '@auth0/nextjs-auth0';
 import { InvestmentDefinedDTO } from '@/dbDTOs/investment';
 import getInvestmentGoal from '@/db-operations/getInvestmentGoal';
@@ -28,21 +25,22 @@ export default async function GoalPage({ goalId }: GoalPageProps) {
     <>
       <LoggedHeader showBackButton={true} content="Goal" />
       <Box sx={{ padding: '25px' }}>
-        <Typography component="h2" sx={{ fontSize: '20px', mb: '10px' }}>
-          {goal?.goalName}
-        </Typography>
-      </Box>
-      <Box sx={{ padding: '25px' }}>
-        <BasicLineChart
-          xAxisData={[2023, 2024]}
-          seriesData={[0, parseInt(goal?.acquiredValue!)]}
-          width={400}
-          height={300}
-          xAxisMin={2023}
-          xAxisMax={2040}
-          yAxisMin={0}
-          yAxisMax={parseInt(goal?.goalValue!)}
-        />
+        <Box>
+          <Typography component="h2" sx={{ fontSize: '20px' }}>
+            {goal?.goalName}
+          </Typography>
+        </Box>
+        <Box>
+          <BasicLineChart
+            xAxisData={[2023, 2024]}
+            seriesData={[0, parseInt(goal?.acquiredValue!)]}
+            height={300}
+            xAxisMin={2023}
+            xAxisMax={2040}
+            yAxisMin={0}
+            yAxisMax={parseInt(goal?.goalValue!)}
+          />
+        </Box>
       </Box>
     </>
   );
