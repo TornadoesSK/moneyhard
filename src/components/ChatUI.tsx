@@ -1,10 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Box, Button, TextField } from '@mui/material';
-
-type Message = {
-  text: string;
-  sender: 'user' | 'bot';
-};
+import { createSetup } from '@/service/openaiService';
 
 const userBubbleStyle = {
   alignSelf: 'flex-end',
@@ -17,27 +13,47 @@ const botBubbleStyle = {
   backgroundColor: '#666',
 };
 
-const handleUserMessage = (message: Message): Message => {
-  const mess: Message = { text: 'smrdíš', sender: 'bot' };
+// Define a type for the message object
+export type MessageUI = {
+  content: string;
+  role: 'user' | 'assistant';
+};
+
+// return a bot message based on the user message
+const handleUserMessage = async (
+  messages: MessageUI[],
+  newMessage: MessageUI,
+  isSetup: boolean,
+) => {
+  const mess: MessageUI = await createSetup(messages, newMessage);
   return mess;
 };
 
-const ChatUI = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+interface ChatUIProps {
+  isSetup: boolean;
+}
+
+const ChatUI = ({ isSetup }: ChatUIProps) => {
+  const [messages, setMessages] = useState<MessageUI[]>([]);
   const [inputText, setInputText] = useState<string>('');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
-  const handleSendMessage = (e: FormEvent<HTMLFormElement>) => {
+  const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputText.trim()) return;
-    const newMessage: Message = { text: inputText, sender: 'user' };
+    const newMessage: MessageUI = { content: inputText, role: 'user' };
     // setMessages([...messages, newMessage]);
     setInputText('');
     // Here you might also call the sendMessage function that integrates with the backend or API
-    const botMessage: Message = handleUserMessage(newMessage);
+
+    const botMessage: MessageUI = await handleUserMessage(
+      messages,
+      newMessage,
+      isSetup,
+    );
     setMessages([...messages, newMessage, botMessage]);
   };
 
@@ -70,14 +86,14 @@ const ChatUI = () => {
             <Box
               key={index}
               sx={{
-                ...(msg.sender === 'user' ? userBubbleStyle : botBubbleStyle),
+                ...(msg.role === 'user' ? userBubbleStyle : botBubbleStyle),
                 py: '8px',
                 px: '14px',
                 borderRadius: '16px',
                 maxWidth: '70%',
               }}
             >
-              {msg.text}
+              {msg.content}
             </Box>
           ))}
         </Box>

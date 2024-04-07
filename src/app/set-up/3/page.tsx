@@ -1,7 +1,6 @@
-"use client"
-import ChatUI from "@/components/ChatUI";
-
+'use client';
+import ChatUI from '@/components/ChatUI';
 
 export default function SetUp() {
-  return < ChatUI />
+  return <ChatUI isSetup={true} />;
 }
