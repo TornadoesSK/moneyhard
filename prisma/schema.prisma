@@ -36,20 +36,20 @@ enum ConversationStyle {
 }
 
 type UserContext {
-  age                Int
-  incomeType         IncomeType         @map("income_type")
-  hardExpenses       Int                @map("hard_expenses")
-  relationshipStatus RelationshipStatus @map("relationship_status")
-  children           Int
-  housing            Housing
-  education          Education
-  employment         Employment
-  occupation         String
+  age                Int?
+  incomeType         IncomeType?         @map("income_type")
+  hardExpenses       Int?                @map("hard_expenses")
+  relationshipStatus RelationshipStatus? @map("relationship_status")
+  children           Int?
+  housing            Housing?
+  education          Education?
+  employment         Employment?
+  occupation         String?
   // Uncomment and adjust types if these fields are required
   // retirement         Boolean
   // savings            Int
   // debt               Int
-  globalPlans        String[]           @map("global_plans")
+  // globalPlans        String[]?           @map("global_plans")
 }
 
 enum IncomeType {

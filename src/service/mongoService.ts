@@ -19,7 +19,7 @@ export async function setBasicUserData(data: any) {
         name: data.name,
         gender: data.gender,
         context: {
-          update: {
+          set: {
             age: Number(data.age),
           },
         },
@@ -41,12 +41,10 @@ export async function setAdditionalData(data: any) {
       where: { email: email },
       data: {
         context: {
-          update: {
+          set: {
             hardExpenses: Number(data.monthlyExpenses),
             occupation: data.job,
-            relationshipStatus: {
-              set: data['marriage-status'],
-            },
+            relationshipStatus: data['marriage-status'],
           },
         },
       },
