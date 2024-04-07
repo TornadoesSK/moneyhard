@@ -35,7 +35,7 @@ export default async function Dashboard() {
     <>
       <LoggedHeader showBackButton={false} content="balance" />
       <Box sx={{ padding: '25px' }}>
-        <Typography variant="h3" component="h1">
+        <Typography component="h2" sx={{fontSize: "20px", mb: "10px"}}>
           Your goals
         </Typography>
         <Carousel>

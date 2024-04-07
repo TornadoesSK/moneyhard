@@ -51,7 +51,7 @@ export default function GoalRectangle({
     >
       <CardContent>
         <Typography
-          sx={{ fontSize: 20, fontWeight: 500 }}
+          sx={{ fontSize: "18px", fontWeight: 500 }}
           color="text.secondary"
           gutterBottom
         >
