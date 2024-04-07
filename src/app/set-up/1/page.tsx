@@ -62,7 +62,12 @@ const SetUpPage = () => {
               <Typography variant="h5" component="div" sx={{ mb: 2 }}>
                 Please fill out the form below:
               </Typography>
-              <form>
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  handleContinueClick();
+                }}
+              >
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -132,12 +137,7 @@ const SetUpPage = () => {
                     </TextField>
                   </Grid>
                 </Grid>
-                <Button
-                  type="button"
-                  onClick={handleContinueClick}
-                  variant="contained"
-                  sx={{ mt: 2 }}
-                >
+                <Button type="submit" variant="contained" sx={{ mt: 2 }}>
                   Continue
                 </Button>
               </form>

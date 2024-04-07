@@ -29,8 +29,9 @@ const ExpensePage = () => {
   });
 
   // Function to handle form field changes
-  // @ts-ignore
-  const handleInputChange = e => {
+  const handleInputChange: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -38,9 +39,7 @@ const ExpensePage = () => {
   };
 
   // Function to handle form submission
-  // @ts-ignore
-  const handleSubmitClick = e => {
-    e.preventDefault();
+  const handleSubmitClick = () => {
     setAdditionalData(formData);
 
     router.push('/set-up/3', { scroll: false });
@@ -66,7 +65,12 @@ const ExpensePage = () => {
           <Typography variant="h5" component="div" sx={{ mb: 2 }}>
             Please fill out the form below:
           </Typography>
-          <form>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              handleSubmitClick();
+            }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -168,12 +172,7 @@ const ExpensePage = () => {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="button"
-              onClick={handleSubmitClick}
-              variant="contained"
-              sx={{ mt: 2 }}
-            >
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
               Submit
             </Button>
           </form>
