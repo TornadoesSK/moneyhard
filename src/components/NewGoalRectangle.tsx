@@ -65,9 +65,10 @@ export default function NewGoalRectangle({ maxWidth, userId }: Props) {
           maxWidth:
             typeof maxWidth === 'number' && !showForm ? maxWidth : '100%',
           minWidth: 200,
-          borderRadius: 4,
-          backgroundColor: 'background.paper',
+          backgroundColor: 'background.default',
+          mt: 2,
         }}
+        elevation={0}
       >
         <CardContent
           sx={{
@@ -75,6 +76,8 @@ export default function NewGoalRectangle({ maxWidth, userId }: Props) {
             flexDirection: 'column',
             alignItems: 'center',
             height: '100%',
+            width: '100%',
+            p: 0,
           }}
         >
           {showForm ? (
@@ -131,34 +134,37 @@ export default function NewGoalRectangle({ maxWidth, userId }: Props) {
                   />
                 </Grid>
               </Grid>
-              <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                Submit
-              </Button>
-              <Button
-                variant="contained"
-                sx={{ mt: 2 }}
-                onClick={() => {
-                  setShowForm(false);
-                }}
-              >
-                Close
-              </Button>
+              <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                <Button type="submit" variant="contained">
+                  Submit
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setShowForm(false);
+                  }}
+                >
+                  Close
+                </Button>
+              </Box>
             </form>
           ) : (
             <Box
               sx={{
                 backgroundColor: 'primary.main',
-                borderRadius: 50,
+                borderRadius: '50%',
                 height: '50px',
                 width: '50px',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                fontSize: 60,
+                fontSize: '50px',
+                lineHeight: '45px',
+                '&:hover': { cursor: 'pointer' },
               }}
               onClick={() => setShowForm(true)}
             >
-              +
+              <div style={{ height: '50px' }}>+</div>
             </Box>
           )}
         </CardContent>

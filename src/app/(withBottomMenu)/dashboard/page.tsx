@@ -99,7 +99,7 @@ export default async function Dashboard() {
               />
             ))}
         </Carousel>
-        <NewGoalRectangle maxWidth={200} userId={session!.user.email} />
+        <NewGoalRectangle userId={session!.user.email} />
       </Box>
     </>
   );
