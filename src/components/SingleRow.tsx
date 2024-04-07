@@ -6,7 +6,7 @@ interface SingleRowProps {
   leftText: string;
   rightText: string;
   imagePath?: string;
-  navigateTo: string;
+  navigateTo?: string;
 }
 
 const SingleRow: React.FC<SingleRowProps> = ({
@@ -18,7 +18,7 @@ const SingleRow: React.FC<SingleRowProps> = ({
   const router = useRouter();
 
   const handleRowClick = () => {
-    router.push(navigateTo);
+    navigateTo && router.push(navigateTo);
   };
 
   return (
@@ -39,7 +39,7 @@ const SingleRow: React.FC<SingleRowProps> = ({
     >
       <Typography variant="body1">{leftText}</Typography>
       <Box display="flex" alignItems="center">
-        <Typography variant="body1" mr={1}>
+        <Typography variant="body1" mr={1} sx={{ whiteSpace: 'nowrap' }}>
           {rightText}
         </Typography>
         {imagePath && (
