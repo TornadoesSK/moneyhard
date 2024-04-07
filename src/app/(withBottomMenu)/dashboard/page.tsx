@@ -3,6 +3,7 @@ import GoalRectangle from '@/components/GoalRectangle';
 import LoggedHeader from '@/components/LoggedHeader';
 import BasicPie from '@/components/charts/PieChart';
 import { Box, Typography } from '@mui/material';
+import NewGoalRectangle from '@/components/NewGoalRectangle';
 
 interface GoalRectangleValues {
   goalName: string;
@@ -42,7 +43,7 @@ export default async function Dashboard() {
         <BasicPie />
       </Box>
       <Box sx={{ padding: '25px' }}>
-        <Typography component="h2" sx={{fontSize: "20px", mb: "10px"}}>
+        <Typography component="h2" sx={{ fontSize: '20px', mb: '10px' }}>
           Your goals
         </Typography>
         <Carousel>
@@ -56,9 +57,9 @@ export default async function Dashboard() {
             />
           ))}
         </Carousel>
-        
+        <NewGoalRectangle maxWidth={200} />
       </Box>
-      
+
     </>
   );
 }

@@ -86,10 +86,13 @@ enum Employment {
 }
 
 model Investment {
-  id                       String             @id @default(auto()) @map("_id") @db.ObjectId
-  userId                   String             @map("user_id")
-  riskLevel                String
+  id                       String @id @default(auto()) @map("_id") @db.ObjectId
+  userId                   String @map("user_id")
+  goalName                 String
   goalValue                String
+  acquiredValue            String
+  months                   String
+  riskLevel                String
   goalTimeframe            String
   investmentAmount         String
   investmentValue          String
@@ -110,13 +113,6 @@ enum InvestmentType {
   monthly
   yearly
   // Add more types as needed
-}
-
-enum InvestmentGoal {
-  retirement
-  savings
-  education
-  // Add more goals as needed
 }
 
 enum InvestmentStyle {

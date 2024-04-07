@@ -1,6 +1,16 @@
 'use server';
 import { MessageUI } from '@/components/ChatUI';
 import OpenAI from 'openai';
+import { UserContextFromRegFormsDTO } from '@/dbDTOs/user';
+import addUserInvestment from '@/db-operations/addUserInvestment';
+import { floor } from '@floating-ui/utils';
+import { InvestmentDTO } from '@/dbDTOs/investment';
+
+export interface NewInvestmentGoalFormData {
+  goalName: string;
+  valueGoal: number;
+  months: number;
+}
 
 const GPT_MODEL = 'gpt-3.5-turbo';
 
@@ -32,28 +42,42 @@ export async function sendMessage(systemMessage: string, message: string) {
 }
 
 const CREATE_GOAL_PROMPT =
-  'You are a financial advisor and you should create an investment goal for a client. The client is a 30 years old man' +
-  ' who really doesnt like risk. Create a goal and divide investments into groups based on his risk managementDo it in json like this:' +
-  ' {     goalTimeframe: data.goalTimeframe,\n' +
-  '      userId: email,\n' +
-  '      riskLevel: data.riskLevel,\n' +
-  '      goalValue: data.goalValue,\n' +
-  '      investmentAmount: data.investmentAmount,\n' +
-  '      investmentValue: data.investmentValue,\n' +
-  '      investmentDuration: data.investmentDuration,\n' +
-  '      investmentGoal: data.investmentGoal, // enum - retirement, savings, education\n' +
-  '      investmentStyle: data.investmentStyle, // style - aggressive, moderate, conservative\n' +
-  '      investmentStrategy: data.investmentStrategy, // strategy - growth, income, index\n' +
-  '      investmentAdvice: data.investmentAdvice,\n' +
-  '      investmentRecommendation: data.investmentRecommendation,\n' +
-  '      investmentAllocation: {type: string (stocks, cash, bonds), percentage: number, assetName: string}[] // json value\n';
+  'You are a financial advisor and you should create an investment goal for a client. The client is a {{age}} years old {{gender}}' +
+  ' who really doesnt like risk. Monthly income of this client is {{income}} with fixed monthly expenses of {{hardExpenses}}. ' +
+  "Client is working as {{occupation}} and is in {{relationship}} relationship. Client's investment goal is {{valueGoal}} and he would like to achieve it in {{months}} months. " +
+  'Create a goal and divide investments into groups based on his risk managementDo it in json like this:' +
+  ' {     "goalTimeframe": string(data.goalTimeframe),\n' +
+  '      "userId": string(email),\n' +
+  '      "riskLevel": string(data.riskLevel),\n' +
+  '      "goalValue": string(data.goalValue),\n' +
+  '      "investmentAmount": string(data.investmentAmount),\n' +
+  '      "investmentValue": string(data.investmentValue),\n' +
+  '      "investmentDuration": string.(data.investmentDuration),\n' +
+  '      "investmentGoal": data.investmentGoal, // enum - retirement, savings, education\n' +
+  '      "investmentStyle": data.investmentStyle, // style - aggressive, moderate, conservative\n' +
+  '      "investmentStrategy": data.investmentStrategy, // strategy - growth, income, index\n' +
+  '      "investmentAdvice": data.investmentAdvice,\n' +
+  '      "investmentRecommendation": data.investmentRecommendation,\n' +
+  '      "investmentAllocation": {"type": string (stocks, cash, bonds), "percentage": number, "assetName": string}[] // json value\n';
 
-export async function createGoal(text: string) {
+export async function createGoal(
+  text: string,
+  contextDto: UserContextFromRegFormsDTO,
+  investmentGoalFormData: NewInvestmentGoalFormData,
+) {
+  const filled_goal_prompt = CREATE_GOAL_PROMPT.replace(
+    '{{age}}',
+    contextDto.age.toString(),
+  )
+    .replace('{{gender}}', contextDto.gender)
+    .replace('{{income}}', contextDto.income.toString())
+    .replace('{{hardExpenses}}', contextDto.hardExpenses.toString())
+    .replace('{{occupation}}', contextDto.occupation)
+    .replace('{{relationship}}', contextDto.relationshipStatus)
+    .replace('{{valueGoal}}', investmentGoalFormData.valueGoal.toString())
+    .replace('{{months}}', investmentGoalFormData.months.toString());
   const completion = await openai.chat.completions.create({
-    messages: [
-      { role: 'system', content: CREATE_GOAL_PROMPT },
-      { role: 'user', content: text },
-    ],
+    messages: [{ role: 'system', content: filled_goal_prompt }],
     model: GPT_MODEL,
   });
 
@@ -62,6 +86,27 @@ export async function createGoal(text: string) {
     completion.choices.at(0) === undefined
   ) {
     return 'Please try that again;.';
+  }
+
+  console.log(filled_goal_prompt);
+
+  let jsonObj = {};
+  try {
+    // @ts-ignore
+    jsonObj = JSON.parse(completion.choices.at(0).message.content);
+    console.log(jsonObj); // This will log the object to the console.
+    await addUserInvestment({
+      ...jsonObj,
+      goalName: investmentGoalFormData.goalName.toString(),
+      goalValue: investmentGoalFormData.valueGoal.toString(),
+      acquiredValue: floor(
+        Math.random() * (investmentGoalFormData.valueGoal - 1 + 1) + 1,
+      ).toString(),
+      months: investmentGoalFormData.months.toString(),
+      investmentType: 'monthly',
+    } as InvestmentDTO);
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
   }
 
   // @ts-ignore
