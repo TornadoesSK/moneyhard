@@ -2,7 +2,8 @@
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Box, Button, TextField } from '@mui/material';
-import { createSetup } from '@/service/openaiService';
+import {createGoal, createGoalChatOnly, createSetup} from '@/service/openaiService';
+import {getUserData} from "@/service/mongoService";
 
 const userBubbleStyle = {
   alignSelf: 'flex-end',
@@ -46,6 +47,44 @@ const ChatUI = ({ isSetup }: ChatUIProps) => {
   const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputText.trim()) return;
+
+    const lowerCaseInputText = inputText.toLowerCase();
+    if (lowerCaseInputText.startsWith('create goal') || lowerCaseInputText.startsWith('create a goal')) {
+      const user = await getUserData()
+      if (!user || !user.context) {
+        console.log("Couldnt find user")
+        return;
+      }
+
+      const newMessage: MessageUI = { content: inputText, role: 'user' };
+      setMessages([...messages, newMessage]);
+      setInputText('');
+
+      const result = await createGoalChatOnly(inputText,
+        {
+          age: user.context.age ? user.context.age : 20,
+          income: user.income,
+          gender: user.gender == 'M' ? 'Male' : 'Female',
+          relationshipStatus: user.context.relationshipStatus == 'single' ? 'Single' : 'Married',
+          occupation: user.context.occupation ? user.context.occupation : 'Unemployed',
+          hardExpenses: user.context.hardExpenses ? user.context.hardExpenses : 0,
+        },
+        user.email
+        );
+
+      if (!result) {
+        console.log("Couldnt get data")
+        return
+      }
+
+      const resultJson: any = JSON.parse(result);
+      const botText = `Thank you for your information! I have created a new goal for you with name ${resultJson.goalName}, value of ${resultJson.goalValue} and duration of ${resultJson.months} months. For futher information check Your goals.`
+      const botMessage: MessageUI = { content: botText, role: 'assistant' };
+      setMessages([...messages, newMessage, botMessage]);
+
+      return
+    }
+
     const newMessage: MessageUI = { content: inputText, role: 'user' };
     // setMessages([...messages, newMessage]);
     setInputText('');

@@ -73,3 +73,21 @@ export async function getInvestments() {
 
   return data
 }
+
+export async function getUserData() {
+  const session = await getSession();
+  if (session == null) {
+    console.log('Cant update');
+    return;
+  }
+  const email = session.user.email;
+
+  const data = prismaClient.user.findUnique({
+    where: {
+      email: email,
+    },
+  })
+    // .then(r => console.log(r))
+
+  return data
+}

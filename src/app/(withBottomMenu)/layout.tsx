@@ -81,7 +81,10 @@ export default function Layout({
       <Drawer
         anchor="bottom"
         open={drawerOpenned}
-        onClose={() => setDrawerOpenned(false)}
+        onClose={() => {
+          setDrawerOpenned(false);
+          window.location.href = window.location.href;
+        }}
         PaperProps={{
           sx: {
             backgroundColor: 'background.default',
@@ -101,7 +104,10 @@ export default function Layout({
             '&:hover': { cursor: 'pointer' },
             p: '10px',
           }}
-          onClick={() => setDrawerOpenned(false)}
+          onClick={() => {
+            setDrawerOpenned(false);
+            window.location.href = window.location.href;
+          }}
         >
           &#x2715;
         </Box>
