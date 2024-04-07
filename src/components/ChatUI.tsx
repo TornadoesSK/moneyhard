@@ -37,7 +37,10 @@ interface ChatUIProps {
 }
 
 const ChatUI = ({ isSetup }: ChatUIProps) => {
-  const [messages, setMessages] = useState<MessageUI[]>([]);
+  const [messages, setMessages] = useState<MessageUI[]>([{
+    content: 'Hello! How can I help you today?\n If you want to create a goal start with \'Create a goal\'' ,
+    role: 'assistant',
+  }]);
   const [inputText, setInputText] = useState<string>('');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
