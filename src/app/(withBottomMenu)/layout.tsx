@@ -12,6 +12,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
 import { useState } from 'react';
+import ChatUI from '@/components/ChatUI';
 
 export default function Layout({
   children,
@@ -85,7 +86,9 @@ export default function Layout({
             backgroundColor: 'background.default',
             color: 'text.primary',
             height: '80vh',
-            p: '30px',
+            pt: '50px',
+            pb: '25px',
+            px: '25px',
           },
         }}
       >
@@ -101,7 +104,7 @@ export default function Layout({
         >
           &#x2715;
         </Box>
-        test
+        <ChatUI />
       </Drawer>
     </>
   );

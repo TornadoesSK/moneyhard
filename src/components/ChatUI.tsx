@@ -1,20 +1,26 @@
-// components/ChatUI.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import styles from './ChatUI.module.css'; // Ensure you have the CSS module created
+import { Box, Button, TextField } from '@mui/material';
 
-
-
-// Define a type for the message object
 type Message = {
   text: string;
   sender: 'user' | 'bot';
 };
 
-// return a bot message based on the user message
-const handleUserMessage = (message: Message): Message =>  {
-    const mess: Message = { text: 'smrdíš', sender: 'bot' };
-    return mess;
-}
+const userBubbleStyle = {
+  alignSelf: 'flex-end',
+  backgroundColor: 'primary.main',
+  color: 'primary.contrastText',
+};
+
+const botBubbleStyle = {
+  alignSelf: 'flex-start',
+  backgroundColor: '#666',
+};
+
+const handleUserMessage = (message: Message): Message => {
+  const mess: Message = { text: 'smrdíš', sender: 'bot' };
+  return mess;
+};
 
 const ChatUI = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -32,29 +38,71 @@ const ChatUI = () => {
     setInputText('');
     // Here you might also call the sendMessage function that integrates with the backend or API
     const botMessage: Message = handleUserMessage(newMessage);
-    setMessages([...messages,newMessage, botMessage]);
+    setMessages([...messages, newMessage, botMessage]);
   };
 
   return (
-    <div className={styles.chatContainer}>
-      <div className={styles.messagesContainer}>
-        {messages.map((msg, index) => (
-          <div key={index} className={`${styles.messageBubble} ${msg.sender === 'user' ? styles.userMsg : styles.botMsg}`}>
-            {msg.text}
-          </div>
-        ))}
-      </div>
-      <form className={styles.sendMessageForm} onSubmit={handleSendMessage}>
-        <input
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        overflow: 'hidden',
+        gap: '25px',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column-reverse',
+          overflowY: 'auto',
+          flexGrow: 1,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5px',
+          }}
+        >
+          {messages.map((msg, index) => (
+            <Box
+              key={index}
+              sx={{
+                ...(msg.sender === 'user' ? userBubbleStyle : botBubbleStyle),
+                py: '8px',
+                px: '14px',
+                borderRadius: '16px',
+                maxWidth: '70%',
+              }}
+            >
+              {msg.text}
+            </Box>
+          ))}
+        </Box>
+      </Box>
+
+      <form
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: '15px',
+        }}
+        onSubmit={handleSendMessage}
+      >
+        <TextField
           type="text"
           value={inputText}
           onChange={handleInputChange}
-          className={styles.messageInput}
           placeholder="Type a message..."
+          sx={{ flexGrow: 1, '& .MuiInputBase-root': { height: '44px' } }}
         />
-        <button type="submit" className={styles.sendButton}>Send</button>
+        <Button type="submit" variant="contained">
+          Send
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 
