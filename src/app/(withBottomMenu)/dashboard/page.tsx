@@ -40,9 +40,9 @@ export default async function Dashboard() {
       });
     });
     let finalArray = [];
-    finalArray.push({ type: 'Stocks', amount: stocks });
-    finalArray.push({ type: 'Bonds', amount: bonds });
-    finalArray.push({ type: 'Cash', amount: cash });
+    finalArray.push({ type: 'Stocks', amount: `${stocks} €` });
+    finalArray.push({ type: 'Bonds', amount: `${bonds} €` });
+    finalArray.push({ type: 'Cash', amount: `${cash} €` });
 
     return finalArray;
   };
