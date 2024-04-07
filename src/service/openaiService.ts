@@ -149,6 +149,8 @@ export async function createAssetTypeHint(assetType: string) {
   ) {
     return '';
   }
+  // @ts-ignore
+  return completion.choices.at(0).message.content;
 }
 
 export async function createFinancialTip() {
